@@ -1,0 +1,30 @@
+* {
+}
+
+:root { /* define variables here */
+    /* examples
+    --bg-main: ivory;
+    --bg-second: lightgray;
+    --color-main: black;
+    --color-a: red;
+    */
+}
+
+body {
+    /* examples
+    background-color: var(--bg-main);
+    color: var(--color-main);
+    font-family: Verdana, sans-serif;
+    */
+}
+
+/* elements */
+main {
+
+}
+
+/* classes */
+
+
+/* ids */
+
