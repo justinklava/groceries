@@ -14,7 +14,18 @@
     <!-- header content -->
   </header>
   <main id="main">
-    <!--main section content -->
+    <!--main content -->
+    <form id="main_form">
+        <label for="input-date">Date: </label><input id="input-date" type="date" required/><br />
+        <label for="input-store">Store: </label><input id="input-store" required /><span id="span-otherstore" style="display:none">&nbsp;<label for="input-otherstore">Other: </label><input id="input-otherstore" /></span><br />
+        <label for="input-subtotal">Subtotal: </label><input id="input-subtotal" type="number" size="7" required /><br />
+        <label for="input-tax">Tax: </label><input id="input-tax" type="number" size="7" required /><br />
+        <label for="input-total">Total: </label><input id="input-total" type="number" size="7" required /><br />
+        <label for="input-quantity">Item Quantity: </label><input id="input-quantity"  type="number" size="3" maxlength="3" required /><br />
+        <div id="div-items">
+        </div>
+        <button id="button-submit" type="submit">Submit</button>&nbsp;<button id="button-reset" type="reset">Reset Fields</button>
+    </form>
   </main>
   <footer id="footer">
     <!-- footer content -->
