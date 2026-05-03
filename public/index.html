@@ -7,6 +7,7 @@
   <link rel="stylesheet" type="text/css" href="main.css" />
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <script defer type="text/javascript" src="main.js"></script>
+  <script defer type="text/javascript" src="env.js"></script>
   <title>groceries</title>
 </head>
 <body id="root">
@@ -16,14 +17,14 @@
   <main id="main">
     <!--main content -->
     <form id="main_form">
-        <label for="input-date">Date: </label><input id="input-date" type="date" required/><br />
-        <label for="input-store">Store: </label><input id="input-store" required /><span id="span-otherstore" style="display:none">&nbsp;<label for="input-otherstore">Other: </label><input id="input-otherstore" /></span><br />
-        <label for="input-subtotal">Subtotal: </label><input id="input-subtotal" type="number" size="7" required /><br />
-        <label for="input-tax">Tax: </label><input id="input-tax" type="number" size="7" required /><br />
-        <label for="input-total">Total: </label><input id="input-total" type="number" size="7" required /><br />
-        <label for="input-quantity">Item Quantity: </label><input id="input-quantity"  type="number" size="3" maxlength="3" required /><br />
-        <div id="div-items">
-        </div>
+        <label for="input-date">Date: </label><input id="input-date" name="date" type="date" required/><br />
+        <label for="select-store">Store: </label><select id="select-store" name="store" required></select><span id="span-otherstore" style="display:none">&nbsp;<label for="input-otherstore">Other: </label><input id="input-otherstore" /></span><br />
+        <label for="input-subtotal">Subtotal: </label><input id="input-subtotal" name="subtotal" pattern="^\d*.?(\d{2})?$" size="7" required /><br />
+        <label for="input-tax">Tax: </label><input id="input-tax" name="tax" pattern="^\d*.?(\d{2})?$" size="7" required /><br />
+        <label for="input-total">Total: </label><input id="input-total" name="total" size="7" pattern="^\d*.?(\d{2})?$" required /><br />
+        <label for="input-quantity">Item Quantity: </label><input id="input-quantity" name="quantity" type="number" size="3" maxlength="3" pattern="\d*" required /><br />
+        <span id="span-items">Items:</span><br />
+        <div id="div-items"></div>
         <button id="button-submit" type="submit">Submit</button>&nbsp;<button id="button-reset" type="reset">Reset Fields</button>
     </form>
   </main>
