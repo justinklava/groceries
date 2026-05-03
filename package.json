@@ -1,7 +1,7 @@
 {
   "name": "load-groceries",
   "version": "1.0.0",
-  "description": "",
+  "description": "Barebones webpage for adding grocery receipts to grocery shopping database",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
@@ -10,9 +10,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "''"
+    "url": "https://github.com/justinklava/groceries"
   },
-  "author": "",
+  "author": "Justin Klava",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.6",
