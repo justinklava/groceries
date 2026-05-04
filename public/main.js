@@ -1,28 +1,57 @@
+// from env.js
+//     const apiURL;
 const elmRoot = document.getElementById('root');
 const elmMain = document.getElementById('main');
 const elmHeader = document.getElementById('header');
 const elmFooter = document.getElementById('footer');
 const elmQuantity = document.getElementById('input-quantity');
 const elmItems = document.getElementById('div-items');
-const elmStore = document.getElementById('input-store');
-const elmOther = document.getElementById('span-otherstore');
+const elmStore = document.getElementById('select-store');
+const elmSpanOther = document.getElementById('span-otherstore');
+const elmOther = document.getElementById('input-otherstore');
+const elmSubmit = document.getElementById('button-submit');
+const elmReset = document.getElementById('button-reset');
 
-function buildStoreList(){
+async function buildStoreList(){
     console.log('Entry: buildStoreList()');
-    //fetch list of stores and build list including 'other' with extra field to add store
+    elmStore.replaceChildren();
+    //fetch list of stores and build list including 'Other...'
+    const response = await fetch(apiURL+'stores', {
+        method: 'GET'
+    });
+    const data = await response.json();
+    const storeNames = data.storeName;
+    const storeIDs = data.storeID;
+    for(let i=0; i<storeNames.length; i++) {
+        const option = document.createElement('option');
+        option.value = storeIDs[i];
+        option.text = storeNames[i];
+        elmStore.add(option);
+    }
+    const option = document.createElement('option');
+    option.value = 0;
+    option.text = 'Other...';
+    elmStore.add(option);
 }
 
 function otherStore() {
     console.log('Entry: otherStore()');
-    if(elmStore.value === 'Other') {
-        console.log('Other');
+    //console.log(elmStore.options[elmStore.selectedIndex].value);
+    if(elmStore.options[elmStore.selectedIndex].value == 0) {
+        //console.log('Debug: show Other field');
         //display additional input for store name
-        elmOther.style.display = 'inline';
+        elmSpanOther.style.display = 'inline';
         return;
     }
-    elmOther.style.display = 'none';
+    elmSpanOther.style.display = 'none';
 }
-
+/*
+function updateStoreValue() {
+    if(elmStore.options[elmStore.selectedIndex].text === 'Other...') {
+        elmStore.options[elmStore.selectedIndex].value = elmOther.value;
+    }
+}
+*/
 function addItemsFields() {
     console.log('Entry: addItemsFields()');
     elmItems.replaceChildren();
@@ -32,13 +61,44 @@ function addItemsFields() {
         div.id = 'items-div-' + i;
         div.className = 'items-div';
         elmItems.appendChild(div);
-        console.log(i);
     }
 
 }
 
-function initialize() {
-    buildStoreList();
+async function submit(event) {
+    event.preventDefault();
+    // validate form values and then fetch POST
+    const test_body = {
+        date: '2026-05-03',
+        store: 'Sample Store 1',
+        subtotal: 10.00,
+        tax: 1.5,
+        total: 11.50,
+        quantity: 1,
+        items: [
+            {
+                itemFields: 'some content'
+            }
+        ]
+    };
+    const response = await fetch(apiURL+'insert', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(test_body)
+    });
+    const data = await response.json();
+    if(data.success) {
+        console.log(data.message);
+    }
+    else {
+        console.error(`Error ${apiURL}insert: ${data.message}`);
+    }
+}
+
+async function initialize() {
+    await buildStoreList();
     addItemsFields();
     otherStore();
 }
@@ -46,4 +106,7 @@ function initialize() {
 
 elmQuantity.addEventListener('input', addItemsFields);
 elmStore.addEventListener('input', otherStore);
+//elmOther.addEventListener('input', updateStoreValue);
+elmSubmit.addEventListener('click', submit);
+elmReset.addEventListener('click', () => { elmSpanOther.style.display = 'none'; });
 window.addEventListener('load', initialize);

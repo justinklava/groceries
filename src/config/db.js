@@ -1,6 +1,6 @@
-import {Client, Pool } from 'pg';
+import {Pool } from 'pg';
 
-export { QueryDB, InsertReceipt, InsertPurchase };
+export default QueryDB;
 
 if(!process.env.DB_USER || !process.env.DB_PASSWORD) {
     console.error('Environment file missing database user and/or password');
@@ -20,11 +20,13 @@ const pool = new Pool(config);
 try {
     await pool.query('select * from receipt limit 1');
 } catch (error) {
-    console.error('Failed connection test to database: \n\t' + error.message);
+    console.error('Failed initial connection test to database: \n\t' + error.message);
     process.exit(1);
 }
 
 async function QueryDB(query) {
+    console.log('Entry: QueryDB() src/config/db.js');
+    console.log(`Query: ${query}`);
     try {
         const result = await pool.query(query);
         return result
@@ -33,19 +35,3 @@ async function QueryDB(query) {
         return null;
     }
 }
-
-async function InsertReceipt(receipt) {
-    const query = `INSERT INTO receipt ( ) VALUES ( )`;
-    const client = await pool.connect();
-    const res = await client.query(query);
-    client.release();
-}
-
-async function InsertPurchase(purchases) {
-    const query = `INSERT INTO receipt ( ) VALUES ( )`;
-    const client = await pool.connect();
-    const res = await client.query(query);
-    client.release();
-}
-
-

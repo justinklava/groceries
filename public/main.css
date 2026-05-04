@@ -20,11 +20,15 @@ body {
 
 /* elements */
 main {
-
+    min-width: 500px;
 }
 
 /* classes */
-
+.items-div {
+    min-height: 25px;
+}
 
 /* ids */
-
+#div-items {
+    margin-left: 25px;
+}

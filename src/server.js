@@ -12,9 +12,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+// Log all fetch requests
+app.use((req, res, next) => {
+    console.log(req.method + ' ' + req.originalUrl);
+    next();
+});
+
 // Routes
 app.use('/api', apiRouter); //route api calls to api router.js
 app.use(express.static(path.resolve('public'))); //serves public static files
+
+
 
 app.get('/', (req, res) => {
   res.status(200).sendFile(path.resolve('public', 'index.html'));  //serve frontend index
