@@ -4,6 +4,7 @@ build/
 
 # files
 .env*
+env*
 .DS_Store
 package-lock.json
 *.log
