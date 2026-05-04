@@ -20,7 +20,7 @@ api.post('/insert', async (req, res) => {
         });
         return;
     }
-    //const data = await Insert();
+    //const data = await Insert(req.body);
     const testResponse = {
         success: true,
         message: 'Successful test fetch',
