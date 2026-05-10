@@ -60,6 +60,15 @@ function addItemsFields() {
         const div = document.createElement('div');
         div.id = 'items-div-' + i;
         div.className = 'items-div';
+        const labelItemName = document.createElement('label');
+        labelItemName.for = 'input-item-name-' + i;
+        labelItemName.innerText = 'Item: ';
+        
+        const inputItemName = document.createElement('input');
+        inputItemName.id = 'input-item-name-' + i;
+        
+        div.appendChild(labelItemName);
+        div.appendChild(inputItemName);
         elmItems.appendChild(div);
     }
 
@@ -103,10 +112,15 @@ async function initialize() {
     otherStore();
 }
 
+function reset() {
+    elmSpanOther.style.display = 'none';
+    elmItems.replaceChildren();
+}
+
 
 elmQuantity.addEventListener('input', addItemsFields);
 elmStore.addEventListener('input', otherStore);
 //elmOther.addEventListener('input', updateStoreValue);
 elmSubmit.addEventListener('click', submit);
-elmReset.addEventListener('click', () => { elmSpanOther.style.display = 'none'; });
+elmReset.addEventListener('click', reset);
 window.addEventListener('load', initialize);
